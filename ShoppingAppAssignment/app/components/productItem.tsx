@@ -46,10 +46,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 5,
+        color : 'black'
     },
     price: {
         fontSize: 16,
         marginBottom: 10,
+        color : 'black'
     },
     buttonContainer: {
         flexDirection: 'row',

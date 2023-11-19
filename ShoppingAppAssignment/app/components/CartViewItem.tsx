@@ -50,12 +50,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginStart: 8,
-        marginEnd: 8
+        marginEnd: 8,
+        color : 'black'
     },
     price: {
         fontSize: 16,
         marginStart: 8,
-        marginEnd: 8
+        marginEnd: 8,
+        color : 'black'
     },
 });
 

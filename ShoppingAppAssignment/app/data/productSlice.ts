@@ -31,7 +31,6 @@ export const fetchProducts = createAsyncThunk(
     });
 
     const mappedItem = await CartUtils.mapCartItems(response.data as CartItem[]);
-    console.log("mappedDAta : " +(JSON.stringify(mappedItem)))
     return mappedItem;
   },
 );

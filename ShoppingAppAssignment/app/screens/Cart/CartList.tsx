@@ -19,7 +19,9 @@ const CartList = () => {
     useEffect(()=>{
         dispatch(getCartItems())
     },[dispatch])
+
     return (
+       
         <View style={styles.container}>
         <FlatList
             ListEmptyComponent = {() => <Text style={styles.emptyCartHeading}>Please add item into cart.</Text>}

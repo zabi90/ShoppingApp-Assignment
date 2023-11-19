@@ -16,7 +16,6 @@ const ProductList = () => {
 
     const dispatch = useAppDispatch();
     const productState = useAppSelector(state => state.product)
-    const cartState = useAppSelector(state => state.cart)
     useEffect(() => {
         dispatch(fetchProducts());
     }, [dispatch]);

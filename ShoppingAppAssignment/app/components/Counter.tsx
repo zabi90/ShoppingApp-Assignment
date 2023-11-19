@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     StyleSheet,
     Text,
@@ -15,6 +15,11 @@ type ItemProps = {
 const CounterView = ({ cartQuantity, addItem, removeItem }: ItemProps) => {
 
     const [quantity, setQuantity] = useState(cartQuantity);
+    useEffect(() => {
+      // Update the quantity state whenever the cartQuantity prop changes
+      setQuantity(cartQuantity);
+    }, [cartQuantity]);
+    
     return (
         <View>
         <View style={CounterViewStyle.counterContainer}>
