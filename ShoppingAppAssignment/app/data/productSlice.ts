@@ -1,12 +1,10 @@
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 import axios from 'axios';
+import { CartItem, SaleAbleItem } from './cartSlice';
+import {CartUtils} from '../utils/cartUtils';
 
-export interface Product {
-    id : number,
+export interface Product extends SaleAbleItem{
     color : string,
-    name : string,
-    price : number,
-    img : string
 }
 
 export interface ProductState {
@@ -27,7 +25,14 @@ export const fetchProducts = createAsyncThunk(
     const response = await axios.get(
       'https://my-json-server.typicode.com/benirvingplt/products/products',
     );
-    return response.data;
+
+    response.data.forEach((product : Product) => {
+      product.id = product.id.toString()
+    });
+
+    const mappedItem = await CartUtils.mapCartItems(response.data as CartItem[]);
+    console.log("mappedDAta : " +(JSON.stringify(mappedItem)))
+    return mappedItem;
   },
 );
 
@@ -39,17 +44,18 @@ const productSlice = createSlice({
     // Other reducers for product manipulation can go here if needed
     addProduct : (state, action : PayloadAction<Product>) => {
         state.products.push({
-            id : state.products.length,
+            id : state.products.length.toString(),
             name : action.payload.name,
             color : action.payload.color,
             img : action.payload.img,
-            price : action.payload.price
+            price : action.payload.price,
+            quantity : 1,
         });
     }
   },
   extraReducers: builder => {
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products = action.payload;
+      state.products = action.payload as Product[];
       state.status = 'success';
     });
 

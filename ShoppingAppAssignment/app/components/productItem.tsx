@@ -2,29 +2,29 @@ import React from 'react'
 import {
     StyleSheet,
     Text,
-    TouchableOpacity,
     View,
     Image
 } from 'react-native';
 import { Product } from '../data/productSlice';
+import CounterView from './Counter';
 
-type ItemProps = { product: Product };
+type ItemProps = {
+    product: Product,
+    updateItemQuantity: (product: Product, quantity: number) => void,
+};
 
-const ProductItem = ({ product }: ItemProps) => {
+const ProductItem = ({ product, updateItemQuantity }: ItemProps) => {
     return (
-<View style={styles.container}>
-      <Image source={{ uri: product.img }} style={styles.image} />
-      <Text style={styles.name}>{product.name}</Text>
-      <Text style={styles.price}>Price: ${product.price}</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={()=>{}} style={[styles.button, styles.addButton]}>
-          <Text style={styles.buttonText}>Add to Cart</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={()=>{}} style={[styles.button, styles.deleteButton]}>
-          <Text style={styles.buttonText}>Delete from Cart</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+        <View style={styles.container}>
+            <Image source={{ uri: product.img }} style={styles.image} />
+            <Text style={styles.name}>{product.name}</Text>
+            <Text style={styles.price}>Price: ${product.price}</Text>
+            <CounterView cartQuantity={product.quantity} addItem={(newQuantity) => {
+                updateItemQuantity(product, newQuantity)
+            }} removeItem={(newQuantity) => {
+                updateItemQuantity(product, newQuantity)
+            }} />
+        </View>
     );
 }
 
@@ -55,24 +55,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-    },
-    button: {
-        paddingVertical: 8,
-        paddingHorizontal: 15,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '48%',
-    },
-    addButton: {
-        backgroundColor: '#4caf50',
-    },
-    deleteButton: {
-        backgroundColor: '#f44336',
-    },
-    buttonText: {
-        color: '#ffffff',
-        fontSize: 16,
     },
 });
 

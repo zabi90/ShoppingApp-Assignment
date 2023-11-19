@@ -1,2 +1,2 @@
 export { default as ProductList } from './Product/ProductList';
-export { default as WishList } from './WishList/WishList';
+export { default as CartList } from './Cart/CartList';

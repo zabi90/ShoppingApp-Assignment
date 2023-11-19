@@ -21,7 +21,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ProductList, WishList } from './app/screens';
+import { ProductList, CartList } from './app/screens';
 import {store} from './app/data/Store'
 import { Provider } from 'react-redux';
 
@@ -43,7 +43,7 @@ function App(): JSX.Element {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Product" component={ProductList} />
-          <Tab.Screen name="WishList" component={WishList} />
+          <Tab.Screen name="Cart" component={CartList} />
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -4,18 +4,19 @@ import {
     FlatList,
     RefreshControl,
     View,
+    Text
 } from 'react-native';
 
-import ProductItem from '../../components/productItem';
+import ProductItem from '../../components/ProductItem';
 import { useAppDispatch, useAppSelector } from '../../data/Store';
-import { fetchProducts } from '../../data/productSlice'
-
+import { Product, fetchProducts } from '../../data/productSlice'
+import { addCartItem } from '../../data/cartSlice'
 
 const ProductList = () => {
 
     const dispatch = useAppDispatch();
     const productState = useAppSelector(state => state.product)
-
+    const cartState = useAppSelector(state => state.cart)
     useEffect(() => {
         dispatch(fetchProducts());
     }, [dispatch]);
@@ -32,7 +33,18 @@ const ProductList = () => {
                     />
                 }
                 data={productState.products}
-                renderItem={({ item }) => <ProductItem product={item} />}
+                renderItem={({ item }) => <ProductItem product={item} updateItemQuantity={(product : Product, quantity : number)=>{
+
+                    dispatch(addCartItem(
+                        {
+                            id : product.id.toString(),
+                            name :product.name,
+                            img : product.img,
+                            price : product.price,
+                            quantity : quantity
+                        }
+                        ));
+                }}/>}
                 keyExtractor={item => item.name}
             />
         </View>
